@@ -1,7 +1,7 @@
 package com.senai.vila.model.entity;
 
-import com.senai.vila.model.dto.HabitanteDto;
-import com.senai.vila.model.dto.TiposHabitanteDto;
+import com.senai.vila.model.dto.ResidentDto;
+import com.senai.vila.model.dto.RolesDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,38 +10,38 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "habitantes")
-public class Habitante implements UserDetails {
+@Table(name = "residents")
+public class Resident implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     private String email;
-    private String senha;
+    private String password;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "habitantes_tipos_habitante",
-            joinColumns = @JoinColumn(name = "habitante_id"),
-            inverseJoinColumns = @JoinColumn(name = "tipo_habitante_id")
+            name = "residents_roles",
+            joinColumns = @JoinColumn(name = "resident_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<TiposHabitante> tiposHabitante = new ArrayList<>();
+    private List<Roles> roles = new ArrayList<>();
 
 
-    public Habitante() {
+    public Resident() {
     }
 
-    public Habitante(String email, String senha, List<TiposHabitante> tiposUsuario) {
+    public Resident(String email, String senha, List<Roles> tiposUsuario) {
         this.email = email;
-        this.senha = senha;
-        this.tiposHabitante = tiposUsuario;
+        this.password = senha;
+        this.roles = tiposUsuario;
     }
 
-    public Habitante(String email, String senha, Set<String> tiposUsuario) {
+    public Resident(String email, String senha, Set<String> tiposUsuario) {
         this.email = email;
-        this.senha = senha;
-        this.tiposHabitante = tiposUsuario.stream().map(TiposHabitante::new).collect(Collectors.toList());
+        this.password = senha;
+        this.roles = tiposUsuario.stream().map(Roles::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -67,7 +67,7 @@ public class Habitante implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.senha;
+        return this.password;
     }
 
     @Override
@@ -96,22 +96,22 @@ public class Habitante implements UserDetails {
     }
 
     public void setPassword(String senha) {
-        this.senha = senha;
+        this.password = senha;
     }
 
-    public List<TiposHabitante> getTiposHabitante() {
-        return tiposHabitante;
+    public List<Roles> getRoles() {
+        return roles;
     }
 
-    public void setTiposHabitante(List<TiposHabitante> tiposHabitante) {
-        this.tiposHabitante = tiposHabitante;
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
     }
 
-    public HabitanteDto converterEmDto() {
-        List<TiposHabitanteDto> tiposHabitanteDto =
-                this.tiposHabitante.stream().map(habitante -> {
-                    return new TiposHabitanteDto(habitante.getNome());
+    public ResidentDto convertToDto() {
+        List<RolesDto> rolesDto =
+                this.roles.stream().map(habitante -> {
+                    return new RolesDto(habitante.getName());
                 }).collect(Collectors.toList());
-        return new HabitanteDto(this.email, tiposHabitanteDto);
+        return new ResidentDto(this.email, rolesDto);
     }
 }

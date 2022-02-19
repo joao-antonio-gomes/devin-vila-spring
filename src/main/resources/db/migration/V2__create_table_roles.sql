@@ -1,10 +1,10 @@
-create table tipos_habitante
+create table roles
 (
     id   bigint      not null auto_increment,
-    nome varchar(50) not null,
+    name varchar(50) not null,
     primary key (id)
 );
 
-insert into tipos_habitante (nome)
+insert into roles (name)
 values ('ADMIN'),
        ('USER');

@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-public class AutenticacaoController {
+public class AuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -24,12 +24,12 @@ public class AutenticacaoController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) {
-        UsernamePasswordAuthenticationToken dadosLogin = form.converter();
+    public ResponseEntity<?> authenticate(@RequestBody @Valid LoginForm form) {
+        UsernamePasswordAuthenticationToken dataLogin = form.converter();
 
         try {
-            Authentication authentication = authenticationManager.authenticate(dadosLogin);
-            String token = tokenService.gerarToken(authentication);
+            Authentication authentication = authenticationManager.authenticate(dataLogin);
+            String token = tokenService.generateToken(authentication);
             return ResponseEntity.ok(new TokenDto(token, "Bearer"));
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().build();

@@ -1,9 +1,8 @@
 package com.senai.vila.config.security;
 
-import com.senai.vila.controller.service.AutenticacaoService;
+import com.senai.vila.controller.service.AuthenticationService;
 import com.senai.vila.controller.service.TokenService;
-import com.senai.vila.model.entity.Habitante;
-import com.senai.vila.model.repository.HabitanteRepository;
+import com.senai.vila.model.repository.ResidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,13 +22,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AutenticacaoService autenticacaoService;
+    private AuthenticationService authenticationService;
 
     @Autowired
     private TokenService tokenService;
 
     @Autowired
-    private HabitanteRepository habitanteRepository;
+    private ResidentRepository residentRepository;
 
     @Override
     @Bean
@@ -40,7 +39,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     //Configuração de autenticação, controle de acesso, login e logout
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     //Configuração de autorização, como em url
@@ -55,7 +54,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new JwtAutenticacaoFiltro(tokenService, habitanteRepository), UsernamePasswordAuthenticationFilter.class);
+                .and().addFilterBefore(new JwtAuthenticationFilter(tokenService, residentRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     //Configuração de autorização de recursos estáticos

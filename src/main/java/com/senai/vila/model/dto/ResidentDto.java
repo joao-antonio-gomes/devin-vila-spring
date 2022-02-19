@@ -5,15 +5,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HabitanteDto {
+public class ResidentDto {
     private static final long serialVersionUID = 1L;
     private String email;
     private String password;
-    private List<TiposHabitanteDto> tiposHabitante;
+    private List<RolesDto> roles;
 
-    public HabitanteDto(String email, List<TiposHabitanteDto> tiposHabitante) {
+    public ResidentDto(String email, List<RolesDto> roles) {
         this.email = email;
-        this.tiposHabitante = tiposHabitante;
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -32,11 +32,11 @@ public class HabitanteDto {
         this.password = password;
     }
 
-    public List<TiposHabitanteDto> getTiposHabitante() {
-        return tiposHabitante;
+    public List<RolesDto> getRoles() {
+        return roles;
     }
 
-    public void setTiposHabitante(List<TiposHabitanteDto> tiposHabitante) {
-        this.tiposHabitante = tiposHabitante;
+    public void setRoles(List<RolesDto> roles) {
+        this.roles = roles;
     }
 }
