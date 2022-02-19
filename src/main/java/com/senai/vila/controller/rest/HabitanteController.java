@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/habitantes")
-public class HabitanteRest {
+public class HabitanteController {
 
     private HabitanteService habitanteService;
 
-    public HabitanteRest(HabitanteService habitanteService) {
+    public HabitanteController(HabitanteService habitanteService) {
         this.habitanteService = habitanteService;
     }
 
