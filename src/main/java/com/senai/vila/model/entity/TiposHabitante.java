@@ -1,12 +1,13 @@
 package com.senai.vila.model.entity;
 
+import com.senai.vila.model.dto.TiposHabitanteDto;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tipo_usuario")
-public class TipoUsuario implements GrantedAuthority {
+@Table(name = "tipos_habitante")
+public class TiposHabitante implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -14,20 +15,20 @@ public class TipoUsuario implements GrantedAuthority {
 
     private String nome;
 
-    public TipoUsuario() {
+    public TiposHabitante() {
 
     }
 
-    public TipoUsuario(Long id, String nome) {
+    public TiposHabitante(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
 
-    public TipoUsuario(String nome) {
+    public TiposHabitante(String nome) {
         this.nome = nome;
     }
 
-    public TipoUsuario(TipoUsuario tipoUsuario) {
+    public TiposHabitante(TiposHabitante tipoUsuario) {
         this.id = tipoUsuario.getId();
         this.nome = tipoUsuario.getNome();
     }
@@ -51,5 +52,9 @@ public class TipoUsuario implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return this.nome;
+    }
+
+    public TiposHabitanteDto converterEmDto() {
+        return new TiposHabitanteDto(this.nome);
     }
 }

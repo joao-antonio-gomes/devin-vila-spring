@@ -1,5 +1,7 @@
 package com.senai.vila.model.entity;
 
+import com.senai.vila.model.dto.HabitanteDto;
+import com.senai.vila.model.dto.TiposHabitanteDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,30 +19,29 @@ public class Habitante implements UserDetails {
 
     private String email;
     private String senha;
-    private boolean ativo;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "habitantes_tipo_usuario",
+            name = "habitantes_tipos_habitante",
             joinColumns = @JoinColumn(name = "habitante_id"),
-            inverseJoinColumns = @JoinColumn(name = "tipo_usuario_id")
+            inverseJoinColumns = @JoinColumn(name = "tipo_habitante_id")
     )
-    private List<TipoUsuario> tiposUsuario = new ArrayList<>();
+    private List<TiposHabitante> tiposHabitante = new ArrayList<>();
 
 
     public Habitante() {
     }
 
-    public Habitante(String email, String senha, List<TipoUsuario> tiposUsuario) {
+    public Habitante(String email, String senha, List<TiposHabitante> tiposUsuario) {
         this.email = email;
         this.senha = senha;
-        this.tiposUsuario = tiposUsuario;
+        this.tiposHabitante = tiposUsuario;
     }
 
     public Habitante(String email, String senha, Set<String> tiposUsuario) {
         this.email = email;
         this.senha = senha;
-        this.tiposUsuario = tiposUsuario.stream().map(TipoUsuario::new).collect(Collectors.toList());
+        this.tiposHabitante = tiposUsuario.stream().map(TiposHabitante::new).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -91,18 +92,26 @@ public class Habitante implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.ativo;
+        return true;
     }
 
     public void setPassword(String senha) {
         this.senha = senha;
     }
 
-    public List<TipoUsuario> getTiposUsuario() {
-        return tiposUsuario;
+    public List<TiposHabitante> getTiposHabitante() {
+        return tiposHabitante;
     }
 
-    public void setTiposUsuario(List<TipoUsuario> tiposUsuario) {
-        this.tiposUsuario = tiposUsuario;
+    public void setTiposHabitante(List<TiposHabitante> tiposHabitante) {
+        this.tiposHabitante = tiposHabitante;
+    }
+
+    public HabitanteDto converterEmDto() {
+        List<TiposHabitanteDto> tiposHabitanteDto =
+                this.tiposHabitante.stream().map(habitante -> {
+                    return new TiposHabitanteDto(habitante.getNome());
+                }).collect(Collectors.toList());
+        return new HabitanteDto(this.email, tiposHabitanteDto);
     }
 }
