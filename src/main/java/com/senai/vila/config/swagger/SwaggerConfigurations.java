@@ -27,7 +27,6 @@ public class SwaggerConfigurations {
     public Docket vilaApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .pathMapping("/")
-                .ignoredParameterTypes(Resident.class)
                 .securityContexts(List.of(securityContext()))
                 .securitySchemes(List.of(apiKey()))
                 .useDefaultResponseMessages(false)

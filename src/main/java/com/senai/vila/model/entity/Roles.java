@@ -1,6 +1,7 @@
 package com.senai.vila.model.entity;
 
 import com.senai.vila.model.dto.RolesDto;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -17,6 +18,10 @@ public class Roles implements GrantedAuthority {
 
     public Roles() {
 
+    }
+
+    public Roles(RolesDto rolesDto) {
+        this.name = rolesDto.getName();
     }
 
     public Roles(Long id, String name) {

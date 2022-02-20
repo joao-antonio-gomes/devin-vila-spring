@@ -6,7 +6,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -19,7 +23,13 @@ public class Resident implements UserDetails {
 
     private String email;
     private String password;
-
+    private Double rent;
+    private LocalDate birthDate;
+    private String cpf;
+    @Column(name = "first_name")
+    private String firsName;
+    @Column(name = "last_name")
+    private String lastName;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "residents_roles",
@@ -28,8 +38,18 @@ public class Resident implements UserDetails {
     )
     private List<Roles> roles = new ArrayList<>();
 
-
     public Resident() {
+    }
+
+    public Resident(ResidentDto residentDto) {
+        this.firsName = residentDto.getFirstName();
+        this.lastName = residentDto.getLastName();
+        this.cpf = residentDto.getCpf();
+        this.birthDate = residentDto.getBirthDate();
+        this.rent = residentDto.getRent();
+        this.email = residentDto.getEmail();
+        this.password = residentDto.getPassword();
+        this.roles = residentDto.getRoles().stream().map(Roles::new).collect(Collectors.toList());
     }
 
     public Resident(String email, String senha, List<Roles> tiposUsuario) {
@@ -42,6 +62,26 @@ public class Resident implements UserDetails {
         this.email = email;
         this.password = senha;
         this.roles = tiposUsuario.stream().map(Roles::new).collect(Collectors.toList());
+    }
+
+    public Double getRent() {
+        return rent;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getFirsName() {
+        return firsName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public Long getId() {
@@ -70,6 +110,10 @@ public class Resident implements UserDetails {
         return this.password;
     }
 
+    public void setPassword(String senha) {
+        this.password = senha;
+    }
+
     @Override
     public String getUsername() {
         return this.email;
@@ -95,10 +139,6 @@ public class Resident implements UserDetails {
         return true;
     }
 
-    public void setPassword(String senha) {
-        this.password = senha;
-    }
-
     public List<Roles> getRoles() {
         return roles;
     }
@@ -109,9 +149,10 @@ public class Resident implements UserDetails {
 
     public ResidentDto convertToDto() {
         List<RolesDto> rolesDto =
-                this.roles.stream().map(habitante -> {
-                    return new RolesDto(habitante.getName());
+                this.roles.stream().map(resident -> {
+                    return new RolesDto(resident.getName());
                 }).collect(Collectors.toList());
-        return new ResidentDto(this.email, rolesDto);
+        return new ResidentDto(this.firsName, this.lastName, this.cpf, this.birthDate, this.rent, this.email,
+                rolesDto);
     }
 }

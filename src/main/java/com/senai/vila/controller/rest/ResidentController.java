@@ -1,12 +1,13 @@
 package com.senai.vila.controller.rest;
 
 import com.senai.vila.controller.service.ResidentService;
+import com.senai.vila.exception.CpfException;
+import com.senai.vila.exception.ResidentException;
 import com.senai.vila.model.dto.ResidentDto;
-import com.senai.vila.model.entity.Resident;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/residents")
@@ -25,27 +26,44 @@ public class ResidentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getResidentById(Long id) {
-        Resident resident = residentService.getResidentById(id);
+    public ResponseEntity getResidentById(@PathVariable String id) throws ResidentException {
+        ResidentDto resident = residentService.getResidentById(Long.valueOf(id));
         return ResponseEntity.ok(resident);
     }
 
     @PostMapping
-    public ResponseEntity createResident(Resident resident) {
-        Resident residentCreated = residentService.createResident(resident);
+    public ResponseEntity createResident(@RequestBody ResidentDto resident) throws CpfException, ResidentException {
+        ResidentDto residentCreated = residentService.createResident(resident);
         return ResponseEntity.ok(residentCreated);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteResident(Long id) {
-        residentService.deleteResident(id);
+    public ResponseEntity deleteResident(@PathVariable String id) {
+        residentService.deleteResident(Long.valueOf(id));
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity updateResident(Long id, Resident resident) {
-        Resident residentUpdated = residentService.updateResident(id, resident);
-        return ResponseEntity.ok(residentUpdated);
+    @GetMapping("/listByBirthMonth")
+    public ResponseEntity listByBirthMonth(@RequestParam(value = "birthMonth", required = false) Integer month) {
+        List<ResidentDto> residents = residentService.listByBirthMonth(month);
+        return ResponseEntity.ok(residents);
     }
 
+    @GetMapping("/listByFirstName")
+    public ResponseEntity listByFirstName(@RequestParam(value = "firstName", required = false) String firstName) {
+        List<ResidentDto> residents = residentService.listByFirstName(firstName);
+        return ResponseEntity.ok(residents);
+    }
+
+    @GetMapping("/listByLastName")
+    public ResponseEntity listByLastName(@RequestParam(value = "lastName", required = false) String lastName) {
+        List<ResidentDto> residents = residentService.listByLastName(lastName);
+        return ResponseEntity.ok(residents);
+    }
+
+    @GetMapping("/listByAge")
+    public ResponseEntity listByAge(@RequestParam(value = "age", required = false) Integer age) {
+        List<ResidentDto> residents = residentService.listByAge(age);
+        return ResponseEntity.ok(residents);
+    }
 }
