@@ -1,7 +1,9 @@
 package com.senai.vila.model.entity;
 
+import com.senai.vila.exception.CpfException;
 import com.senai.vila.model.dto.ResidentDto;
 import com.senai.vila.model.dto.RolesDto;
+import com.senai.vila.utils.CpfValidator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -37,6 +39,26 @@ public class Resident implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Roles> roles = new ArrayList<>();
+
+    public void setRent(Double rent) {
+        this.rent = rent;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setCpf(String cpf) throws CpfException {
+        this.cpf = CpfValidator.validateCpf(cpf);
+    }
+
+    public void setFirsName(String firsName) {
+        this.firsName = firsName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public Resident() {
     }

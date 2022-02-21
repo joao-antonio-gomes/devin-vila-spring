@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ResidentController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.senai.vila.controller.rest</a>
+</div>
+
+<h1>Coverage Summary for Class: ResidentController (com.senai.vila.controller.rest)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ResidentController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (1/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (2/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.senai.vila.controller.rest;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.senai.vila.controller.service.ResidentService;
+<i class="no-highlight">4</i>&nbsp;import com.senai.vila.exception.CpfException;
+<i class="no-highlight">5</i>&nbsp;import com.senai.vila.exception.ResidentException;
+<i class="no-highlight">6</i>&nbsp;import com.senai.vila.model.dto.ResidentDto;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.web.bind.annotation.*;
+<i class="no-highlight">9</i>&nbsp;
+<i class="no-highlight">10</i>&nbsp;import java.util.*;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;@RestController
+<i class="no-highlight">13</i>&nbsp;@RequestMapping(&quot;/residents&quot;)
+<i class="no-highlight">14</i>&nbsp;public class ResidentController {
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;    private ResidentService residentService;
+<i class="no-highlight">17</i>&nbsp;
+<b class="fc"><i class="no-highlight">18</i>&nbsp;    public ResidentController(ResidentService residentService) {</b>
+<b class="fc"><i class="no-highlight">19</i>&nbsp;        this.residentService = residentService;</b>
+<i class="no-highlight">20</i>&nbsp;    }
+<i class="no-highlight">21</i>&nbsp;
+<i class="no-highlight">22</i>&nbsp;    @GetMapping
+<i class="no-highlight">23</i>&nbsp;    public ResponseEntity getAllResidents() {
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        List&lt;ResidentDto&gt; habitantes = residentService.getAllResidents();</b>
+<b class="nc"><i class="no-highlight">25</i>&nbsp;        return ResponseEntity.ok(habitantes);</b>
+<i class="no-highlight">26</i>&nbsp;    }
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;    @GetMapping(&quot;/{id}&quot;)
+<i class="no-highlight">29</i>&nbsp;    public ResponseEntity getResidentById(@PathVariable String id) throws ResidentException {
+<b class="nc"><i class="no-highlight">30</i>&nbsp;        ResidentDto resident = residentService.getResidentById(Long.valueOf(id));</b>
+<b class="nc"><i class="no-highlight">31</i>&nbsp;        return ResponseEntity.ok(resident);</b>
+<i class="no-highlight">32</i>&nbsp;    }
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;    @PostMapping
+<i class="no-highlight">35</i>&nbsp;    public ResponseEntity createResident(@RequestBody ResidentDto resident) throws CpfException, ResidentException {
+<b class="nc"><i class="no-highlight">36</i>&nbsp;        ResidentDto residentCreated = residentService.createResident(resident);</b>
+<b class="nc"><i class="no-highlight">37</i>&nbsp;        return ResponseEntity.ok(residentCreated);</b>
+<i class="no-highlight">38</i>&nbsp;    }
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    @DeleteMapping(&quot;/{id}&quot;)
+<i class="no-highlight">41</i>&nbsp;    public ResponseEntity deleteResident(@PathVariable String id) throws ResidentException {
+<b class="nc"><i class="no-highlight">42</i>&nbsp;        residentService.deleteResident(Long.valueOf(id));</b>
+<b class="nc"><i class="no-highlight">43</i>&nbsp;        return ResponseEntity.ok().build();</b>
+<i class="no-highlight">44</i>&nbsp;    }
+<i class="no-highlight">45</i>&nbsp;
+<i class="no-highlight">46</i>&nbsp;    @GetMapping(&quot;/listByBirthMonth&quot;)
+<i class="no-highlight">47</i>&nbsp;    public ResponseEntity listByBirthMonth(@RequestParam(value = &quot;birthMonth&quot;, required = false) Integer month) throws ResidentException {
+<b class="nc"><i class="no-highlight">48</i>&nbsp;        List&lt;ResidentDto&gt; residents = residentService.listByBirthMonth(month);</b>
+<b class="nc"><i class="no-highlight">49</i>&nbsp;        return ResponseEntity.ok(residents);</b>
+<i class="no-highlight">50</i>&nbsp;    }
+<i class="no-highlight">51</i>&nbsp;
+<i class="no-highlight">52</i>&nbsp;    @GetMapping(&quot;/listByFirstName&quot;)
+<i class="no-highlight">53</i>&nbsp;    public ResponseEntity listByFirstName(@RequestParam(value = &quot;firstName&quot;, required = false) String firstName) throws ResidentException {
+<b class="nc"><i class="no-highlight">54</i>&nbsp;        List&lt;ResidentDto&gt; residents = residentService.listByFirstName(firstName);</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;        return ResponseEntity.ok(residents);</b>
+<i class="no-highlight">56</i>&nbsp;    }
+<i class="no-highlight">57</i>&nbsp;
+<i class="no-highlight">58</i>&nbsp;    @GetMapping(&quot;/listByLastName&quot;)
+<i class="no-highlight">59</i>&nbsp;    public ResponseEntity listByLastName(@RequestParam(value = &quot;lastName&quot;, required = false) String lastName) throws ResidentException {
+<b class="nc"><i class="no-highlight">60</i>&nbsp;        List&lt;ResidentDto&gt; residents = residentService.listByLastName(lastName);</b>
+<b class="nc"><i class="no-highlight">61</i>&nbsp;        return ResponseEntity.ok(residents);</b>
+<i class="no-highlight">62</i>&nbsp;    }
+<i class="no-highlight">63</i>&nbsp;
+<i class="no-highlight">64</i>&nbsp;    @GetMapping(&quot;/listByAge&quot;)
+<i class="no-highlight">65</i>&nbsp;    public ResponseEntity listByAge(@RequestParam(value = &quot;age&quot;, required = false) Integer age) throws ResidentException {
+<b class="nc"><i class="no-highlight">66</i>&nbsp;        List&lt;ResidentDto&gt; residents = residentService.listByAge(age);</b>
+<b class="nc"><i class="no-highlight">67</i>&nbsp;        return ResponseEntity.ok(residents);</b>
+<i class="no-highlight">68</i>&nbsp;    }
+<i class="no-highlight">69</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-02-21 11:22</div>
+</div>
+</body>
+</html>

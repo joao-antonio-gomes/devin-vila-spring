@@ -30,8 +30,8 @@ public interface ResidentRepository extends JpaRepository<Resident, Long> {
     Optional<List<Resident>> findByLastName(String lastName);
 
 
-    @Query(value = "SELECT * FROM residents r WHERE r.birth_date >= ?1", nativeQuery = true)
-    Optional<List<Resident>> findByAge(LocalDate dateBirth);
+    @Query(value = "SELECT * FROM residents r WHERE year(r.birth_date) >= ?1", nativeQuery = true)
+    Optional<List<Resident>> findByAge(int age);
 
 
     @Query(value = "SELECT sum(rent) FROM residents r", nativeQuery = true)

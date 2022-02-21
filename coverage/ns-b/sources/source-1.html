@@ -1,0 +1,135 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ResidentRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.senai.vila.model.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: ResidentRepository (com.senai.vila.model.repository)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$1320579814</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$1320579814$auxiliary$i8P4Slpl</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$1320579814$auxiliary$JzAwDTqL</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$1320579814$auxiliary$SCz5YHfh</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$75348471</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$75348471$auxiliary$93LDrHfT</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$75348471$auxiliary$dm0t3Py2</td>
+  </tr>
+  <tr>
+    <td class="name">ResidentRepository$MockitoMock$75348471$auxiliary$pZCyfMaj</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.senai.vila.model.repository;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.senai.vila.model.entity.Resident;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+<i class="no-highlight">5</i>&nbsp;import org.springframework.data.jpa.repository.Query;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.stereotype.Repository;
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;import java.time.LocalDate;
+<i class="no-highlight">9</i>&nbsp;import java.util.List;
+<i class="no-highlight">10</i>&nbsp;import java.util.Optional;
+<i class="no-highlight">11</i>&nbsp;
+<i class="no-highlight">12</i>&nbsp;@Repository
+<i class="no-highlight">13</i>&nbsp;public interface ResidentRepository extends JpaRepository&lt;Resident, Long&gt; {
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;    Optional&lt;Resident&gt; findByEmail(String email);
+<i class="no-highlight">16</i>&nbsp;
+<i class="no-highlight">17</i>&nbsp;    Optional&lt;Resident&gt; findById(Long id);
+<i class="no-highlight">18</i>&nbsp;
+<i class="no-highlight">19</i>&nbsp;    Optional&lt;Resident&gt; findByCpf(String cpf);
+<i class="no-highlight">20</i>&nbsp;
+<i class="no-highlight">21</i>&nbsp;    @Query(value = &quot;SELECT * FROM residents r WHERE month(r.birth_date) = ?1&quot;, nativeQuery = true)
+<i class="no-highlight">22</i>&nbsp;    Optional&lt;List&lt;Resident&gt;&gt; findByBirthMonth(Integer month);
+<i class="no-highlight">23</i>&nbsp;
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    @Query(value = &quot;SELECT * FROM residents r WHERE r.first_name = ?1&quot;, nativeQuery = true)
+<i class="no-highlight">26</i>&nbsp;    Optional&lt;List&lt;Resident&gt;&gt; findByFirstName(String firstName);
+<i class="no-highlight">27</i>&nbsp;
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;    @Query(value = &quot;SELECT * FROM residents r WHERE r.last_name = ?1&quot;, nativeQuery = true)
+<i class="no-highlight">30</i>&nbsp;    Optional&lt;List&lt;Resident&gt;&gt; findByLastName(String lastName);
+<i class="no-highlight">31</i>&nbsp;
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;    @Query(value = &quot;SELECT * FROM residents r WHERE year(r.birth_date) &gt;= ?1&quot;, nativeQuery = true)
+<i class="no-highlight">34</i>&nbsp;    Optional&lt;List&lt;Resident&gt;&gt; findByAge(int age);
+<i class="no-highlight">35</i>&nbsp;
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;    @Query(value = &quot;SELECT sum(rent) FROM residents r&quot;, nativeQuery = true)
+<i class="no-highlight">38</i>&nbsp;    Double getTotalRentResidents();
+<i class="no-highlight">39</i>&nbsp;
+<i class="no-highlight">40</i>&nbsp;    @Query(value = &quot;SELECT * FROM residents r ORDER BY rent DESC LIMIT 1&quot;, nativeQuery = true)
+<i class="no-highlight">41</i>&nbsp;    Resident getMostValuableResident();
+<i class="no-highlight">42</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-02-21 11:22</div>
+</div>
+</body>
+</html>

@@ -38,31 +38,31 @@ public class ResidentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteResident(@PathVariable String id) {
+    public ResponseEntity deleteResident(@PathVariable String id) throws ResidentException {
         residentService.deleteResident(Long.valueOf(id));
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/listByBirthMonth")
-    public ResponseEntity listByBirthMonth(@RequestParam(value = "birthMonth", required = false) Integer month) {
+    public ResponseEntity listByBirthMonth(@RequestParam(value = "birthMonth", required = false) Integer month) throws ResidentException {
         List<ResidentDto> residents = residentService.listByBirthMonth(month);
         return ResponseEntity.ok(residents);
     }
 
     @GetMapping("/listByFirstName")
-    public ResponseEntity listByFirstName(@RequestParam(value = "firstName", required = false) String firstName) {
+    public ResponseEntity listByFirstName(@RequestParam(value = "firstName", required = false) String firstName) throws ResidentException {
         List<ResidentDto> residents = residentService.listByFirstName(firstName);
         return ResponseEntity.ok(residents);
     }
 
     @GetMapping("/listByLastName")
-    public ResponseEntity listByLastName(@RequestParam(value = "lastName", required = false) String lastName) {
+    public ResponseEntity listByLastName(@RequestParam(value = "lastName", required = false) String lastName) throws ResidentException {
         List<ResidentDto> residents = residentService.listByLastName(lastName);
         return ResponseEntity.ok(residents);
     }
 
     @GetMapping("/listByAge")
-    public ResponseEntity listByAge(@RequestParam(value = "age", required = false) Integer age) {
+    public ResponseEntity listByAge(@RequestParam(value = "age", required = false) Integer age) throws ResidentException {
         List<ResidentDto> residents = residentService.listByAge(age);
         return ResponseEntity.ok(residents);
     }

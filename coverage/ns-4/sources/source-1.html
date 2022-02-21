@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SwaggerConfigurations</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.senai.vila.config.swagger</a>
+</div>
+
+<h1>Coverage Summary for Class: SwaggerConfigurations (com.senai.vila.config.swagger)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SwaggerConfigurations</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SwaggerConfigurations$$EnhancerBySpringCGLIB$$2a68014f</td>
+  </tr>
+  <tr>
+    <td class="name">SwaggerConfigurations$$EnhancerBySpringCGLIB$$2a68014f$$FastClassBySpringCGLIB$$cb0a1ab7</td>
+  </tr>
+  <tr>
+    <td class="name">SwaggerConfigurations$$EnhancerBySpringCGLIB$$ecd6d5dd</td>
+  </tr>
+  <tr>
+    <td class="name">SwaggerConfigurations$$EnhancerBySpringCGLIB$$ecd6d5dd$$FastClassBySpringCGLIB$$352cf754</td>
+  </tr>
+  <tr>
+    <td class="name">SwaggerConfigurations$$FastClassBySpringCGLIB$$891e1fa6</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.senai.vila.config.swagger;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.senai.vila.model.entity.Resident;
+<i class="no-highlight">4</i>&nbsp;import org.springframework.context.annotation.Bean;
+<i class="no-highlight">5</i>&nbsp;import org.springframework.context.annotation.Configuration;
+<i class="no-highlight">6</i>&nbsp;import springfox.documentation.builders.PathSelectors;
+<i class="no-highlight">7</i>&nbsp;import springfox.documentation.builders.RequestHandlerSelectors;
+<i class="no-highlight">8</i>&nbsp;import springfox.documentation.service.ApiKey;
+<i class="no-highlight">9</i>&nbsp;import springfox.documentation.service.AuthorizationScope;
+<i class="no-highlight">10</i>&nbsp;import springfox.documentation.service.SecurityReference;
+<i class="no-highlight">11</i>&nbsp;import springfox.documentation.spi.DocumentationType;
+<i class="no-highlight">12</i>&nbsp;import springfox.documentation.spi.service.contexts.SecurityContext;
+<i class="no-highlight">13</i>&nbsp;import springfox.documentation.spring.web.plugins.Docket;
+<i class="no-highlight">14</i>&nbsp;import springfox.documentation.swagger2.annotations.EnableSwagger2;
+<i class="no-highlight">15</i>&nbsp;
+<i class="no-highlight">16</i>&nbsp;import java.util.List;
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;import static springfox.documentation.builders.PathSelectors.regex;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;@Configuration
+<i class="no-highlight">21</i>&nbsp;@EnableSwagger2
+<b class="fc"><i class="no-highlight">22</i>&nbsp;public class SwaggerConfigurations {</b>
+<i class="no-highlight">23</i>&nbsp;    public static final String AUTHORIZATION_HEADER = &quot;Authorization&quot;;
+<i class="no-highlight">24</i>&nbsp;    public static final String DEFAULT_INCLUDE_PATTERN = &quot;/.*&quot;;
+<i class="no-highlight">25</i>&nbsp;
+<i class="no-highlight">26</i>&nbsp;    @Bean
+<i class="no-highlight">27</i>&nbsp;    public Docket vilaApi() {
+<b class="fc"><i class="no-highlight">28</i>&nbsp;        return new Docket(DocumentationType.SWAGGER_2)</b>
+<b class="fc"><i class="no-highlight">29</i>&nbsp;                .pathMapping(&quot;/&quot;)</b>
+<b class="fc"><i class="no-highlight">30</i>&nbsp;                .securityContexts(List.of(securityContext()))</b>
+<b class="fc"><i class="no-highlight">31</i>&nbsp;                .securitySchemes(List.of(apiKey()))</b>
+<b class="fc"><i class="no-highlight">32</i>&nbsp;                .useDefaultResponseMessages(false)</b>
+<b class="fc"><i class="no-highlight">33</i>&nbsp;                .select()</b>
+<b class="fc"><i class="no-highlight">34</i>&nbsp;                .apis(RequestHandlerSelectors.basePackage(&quot;com.senai.vila.controller.rest&quot;))</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;                .paths(PathSelectors.any())</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;                .build();</b>
+<i class="no-highlight">37</i>&nbsp;
+<i class="no-highlight">38</i>&nbsp;    }
+<i class="no-highlight">39</i>&nbsp;    private ApiKey apiKey() {
+<b class="fc"><i class="no-highlight">40</i>&nbsp;        return new ApiKey(&quot;JWT&quot;, AUTHORIZATION_HEADER, &quot;header&quot;);</b>
+<i class="no-highlight">41</i>&nbsp;    }
+<i class="no-highlight">42</i>&nbsp;
+<i class="no-highlight">43</i>&nbsp;    private SecurityContext securityContext() {
+<b class="fc"><i class="no-highlight">44</i>&nbsp;        return SecurityContext.builder()</b>
+<b class="fc"><i class="no-highlight">45</i>&nbsp;                .securityReferences(defaultAuth())</b>
+<b class="fc"><i class="no-highlight">46</i>&nbsp;                .forPaths(regex(DEFAULT_INCLUDE_PATTERN))</b>
+<b class="fc"><i class="no-highlight">47</i>&nbsp;                .build();</b>
+<i class="no-highlight">48</i>&nbsp;    }
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;    List&lt;SecurityReference&gt; defaultAuth() {
+<b class="fc"><i class="no-highlight">51</i>&nbsp;        AuthorizationScope authorizationScope</b>
+<i class="no-highlight">52</i>&nbsp;                = new AuthorizationScope(&quot;global&quot;, &quot;accessEverything&quot;);
+<b class="fc"><i class="no-highlight">53</i>&nbsp;        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;        authorizationScopes[0] = authorizationScope;</b>
+<b class="fc"><i class="no-highlight">55</i>&nbsp;        return List.of(</b>
+<i class="no-highlight">56</i>&nbsp;                new SecurityReference(&quot;JWT&quot;, authorizationScopes));
+<i class="no-highlight">57</i>&nbsp;
+<i class="no-highlight">58</i>&nbsp;    }
+<i class="no-highlight">59</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-02-21 11:22</div>
+</div>
+</body>
+</html>

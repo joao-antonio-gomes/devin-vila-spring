@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SecurityConfigurations</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.senai.vila.config.security</a>
+</div>
+
+<h1>Coverage Summary for Class: SecurityConfigurations (com.senai.vila.config.security)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SecurityConfigurations</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SecurityConfigurations$$EnhancerBySpringCGLIB$$9ab20965</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityConfigurations$$EnhancerBySpringCGLIB$$9ab20965$$FastClassBySpringCGLIB$$647747ab</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityConfigurations$$EnhancerBySpringCGLIB$$d84334d7</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityConfigurations$$EnhancerBySpringCGLIB$$d84334d7$$FastClassBySpringCGLIB$$fface92</td>
+  </tr>
+  <tr>
+    <td class="name">SecurityConfigurations$$FastClassBySpringCGLIB$$62cb6a2e</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.senai.vila.config.security;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.senai.vila.controller.service.AuthenticationService;
+<i class="no-highlight">4</i>&nbsp;import com.senai.vila.controller.service.TokenService;
+<i class="no-highlight">5</i>&nbsp;import com.senai.vila.model.repository.ResidentRepository;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.context.annotation.Bean;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.context.annotation.Configuration;
+<i class="no-highlight">9</i>&nbsp;import org.springframework.http.HttpMethod;
+<i class="no-highlight">10</i>&nbsp;import org.springframework.security.authentication.AuthenticationManager;
+<i class="no-highlight">11</i>&nbsp;import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+<i class="no-highlight">12</i>&nbsp;import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+<i class="no-highlight">13</i>&nbsp;import org.springframework.security.config.annotation.web.builders.WebSecurity;
+<i class="no-highlight">14</i>&nbsp;import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+<i class="no-highlight">15</i>&nbsp;import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+<i class="no-highlight">16</i>&nbsp;import org.springframework.security.config.http.SessionCreationPolicy;
+<i class="no-highlight">17</i>&nbsp;import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+<i class="no-highlight">18</i>&nbsp;import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+<i class="no-highlight">19</i>&nbsp;
+<i class="no-highlight">20</i>&nbsp;@EnableWebSecurity
+<i class="no-highlight">21</i>&nbsp;@Configuration
+<b class="fc"><i class="no-highlight">22</i>&nbsp;public class SecurityConfigurations extends WebSecurityConfigurerAdapter {</b>
+<i class="no-highlight">23</i>&nbsp;
+<i class="no-highlight">24</i>&nbsp;    @Autowired
+<i class="no-highlight">25</i>&nbsp;    private AuthenticationService authenticationService;
+<i class="no-highlight">26</i>&nbsp;
+<i class="no-highlight">27</i>&nbsp;    @Autowired
+<i class="no-highlight">28</i>&nbsp;    private TokenService tokenService;
+<i class="no-highlight">29</i>&nbsp;
+<i class="no-highlight">30</i>&nbsp;    @Autowired
+<i class="no-highlight">31</i>&nbsp;    private ResidentRepository residentRepository;
+<i class="no-highlight">32</i>&nbsp;
+<i class="no-highlight">33</i>&nbsp;    @Override
+<i class="no-highlight">34</i>&nbsp;    @Bean
+<i class="no-highlight">35</i>&nbsp;    public AuthenticationManager authenticationManagerBean() throws Exception {
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        return super.authenticationManagerBean();</b>
+<i class="no-highlight">37</i>&nbsp;    }
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;    //Configuração de autenticação, controle de acesso, login e logout
+<i class="no-highlight">40</i>&nbsp;    @Override
+<i class="no-highlight">41</i>&nbsp;    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+<b class="fc"><i class="no-highlight">42</i>&nbsp;        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());</b>
+<i class="no-highlight">43</i>&nbsp;    }
+<i class="no-highlight">44</i>&nbsp;
+<i class="no-highlight">45</i>&nbsp;    //Configuração de autorização, como em url
+<i class="no-highlight">46</i>&nbsp;    @Override
+<i class="no-highlight">47</i>&nbsp;    protected void configure(HttpSecurity http) throws Exception {
+<b class="fc"><i class="no-highlight">48</i>&nbsp;        http.cors().and().csrf().disable();</b>
+<i class="no-highlight">49</i>&nbsp;
+<b class="fc"><i class="no-highlight">50</i>&nbsp;        http.authorizeHttpRequests()</b>
+<b class="fc"><i class="no-highlight">51</i>&nbsp;                .antMatchers(&quot;/financialReport&quot;).hasAuthority(&quot;ADMIN&quot;)</b>
+<b class="fc"><i class="no-highlight">52</i>&nbsp;                .antMatchers(HttpMethod.POST, &quot;/residents&quot;).hasAuthority(&quot;ADMIN&quot;)</b>
+<b class="fc"><i class="no-highlight">53</i>&nbsp;                .antMatchers(HttpMethod.DELETE, &quot;/residents&quot;).hasAuthority(&quot;ADMIN&quot;)</b>
+<b class="fc"><i class="no-highlight">54</i>&nbsp;                .antMatchers(HttpMethod.GET, &quot;/**&quot;).permitAll()</b>
+<b class="fc"><i class="no-highlight">55</i>&nbsp;                .antMatchers(HttpMethod.POST, &quot;/auth&quot;).permitAll()</b>
+<b class="fc"><i class="no-highlight">56</i>&nbsp;                .antMatchers(&quot;/actuator&quot;).permitAll()</b>
+<b class="fc"><i class="no-highlight">57</i>&nbsp;                .anyRequest().authenticated()</b>
+<b class="fc"><i class="no-highlight">58</i>&nbsp;                .and().sessionManagement()</b>
+<b class="fc"><i class="no-highlight">59</i>&nbsp;                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)</b>
+<b class="fc"><i class="no-highlight">60</i>&nbsp;                .and().addFilterBefore(new JwtAuthenticationFilter(tokenService, residentRepository), UsernamePasswordAuthenticationFilter.class);</b>
+<i class="no-highlight">61</i>&nbsp;    }
+<i class="no-highlight">62</i>&nbsp;
+<i class="no-highlight">63</i>&nbsp;    //Configuração de autorização de recursos estáticos
+<i class="no-highlight">64</i>&nbsp;    @Override
+<i class="no-highlight">65</i>&nbsp;    public void configure(WebSecurity web) throws Exception {
+<b class="fc"><i class="no-highlight">66</i>&nbsp;        web.ignoring()</b>
+<b class="fc"><i class="no-highlight">67</i>&nbsp;                .antMatchers(&quot;/**.html&quot;, &quot;/v2/api-docs&quot;, &quot;/webjars/**&quot;, &quot;/configuration/**&quot;, &quot;/swagger-resources/**&quot;);</b>
+<i class="no-highlight">68</i>&nbsp;    }
+<i class="no-highlight">69</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-02-21 11:22</div>
+</div>
+</body>
+</html>
