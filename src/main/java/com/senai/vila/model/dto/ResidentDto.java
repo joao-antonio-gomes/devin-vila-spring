@@ -1,6 +1,7 @@
 package com.senai.vila.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResidentDto {
     private static final long serialVersionUID = 1L;
+    @ApiModelProperty(hidden = true)
     private Long id;
     private String email;
     private String password;
@@ -38,7 +40,7 @@ public class ResidentDto {
         this.rent = rent;
         this.email = email;
         this.password = bCryptPasswordEncoder.encode(password);
-        this.roles = roles.stream().map(role -> new RolesDto(role)).collect(Collectors.toList());
+        this.roles = roles.stream().map(RolesDto::new).collect(Collectors.toList());
     }
 
     public ResidentDto(String firstName, String lastName, String cpf, LocalDate birthDate, Double rent, String email,

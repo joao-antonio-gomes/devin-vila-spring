@@ -48,7 +48,7 @@ public class ResidentService {
         String cpf = residentDto.getCpf();
         residentDto.setCpf(CpfValidator.validateCpf(cpf));
 
-        if (residentRepository.findByCpf(cpf).isPresent()) {
+        if (residentRepository.findByCpf(residentDto.getCpf()).isPresent()) {
             throw new ResidentException("Já existe um habitante com esse cpf cadastrado!");
         }
         Resident residentDao = residentRepository.save(new Resident(residentDto));
