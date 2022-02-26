@@ -1,6 +1,9 @@
 package com.senai.vila.controller.rest;
 
+import com.senai.vila.controller.service.AuthenticationService;
 import com.senai.vila.controller.service.TokenService;
+import com.senai.vila.exception.ResidentException;
+import com.senai.vila.model.dto.MailDto;
 import com.senai.vila.model.dto.TokenDto;
 import com.senai.vila.model.entity.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @PostMapping
     public ResponseEntity<?> authenticate(@RequestBody @Valid LoginForm form) {
         UsernamePasswordAuthenticationToken dataLogin = form.converter();
@@ -34,5 +40,11 @@ public class AuthenticationController {
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @PostMapping("/forgot")
+    public ResponseEntity forgot(@RequestBody MailDto email) throws ResidentException {
+        authenticationService.sendNewPass(email.getEmail(), authenticationService.generatePassword());
+        return ResponseEntity.ok().body("Uma nova senha foi enviada para o email informado.");
     }
 }

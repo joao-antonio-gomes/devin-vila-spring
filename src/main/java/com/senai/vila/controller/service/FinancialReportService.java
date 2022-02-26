@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FinancialReportService {
-    @Autowired
-    private ResidentService residentService;
+    private final ResidentService residentService;
 
     private final FinancialReportRepository financialReportRepository;
 
-    public FinancialReportService(FinancialReportRepository financialReportRepository) {
+    public FinancialReportService(FinancialReportRepository financialReportRepository, ResidentService residentService) {
         this.financialReportRepository = financialReportRepository;
+        this.residentService = residentService;
     }
 
     public FinancialReportDto getFinancialReport() {

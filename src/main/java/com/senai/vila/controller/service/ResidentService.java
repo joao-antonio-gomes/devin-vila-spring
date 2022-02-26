@@ -157,4 +157,8 @@ public class ResidentService {
     public Resident getMostValuableResident() {
         return residentRepository.getMostValuableResident();
     }
+
+    public void updateUser(Resident user) {
+        residentRepository.save(user);
+    }
 }
