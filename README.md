@@ -4,6 +4,10 @@
 ### Suba o banco de dados
 - No terminal, execute o comando `docker-compose up -d`, irá subir o banco de dados MySQL em um container para acessar com a aplicação.
 - Execute o arquivo **VilaApplication.java** e suba o servidor de aplicação através do SpringBoot.
+- Além do container MySQL, também irá subir o container responsável pelo RabbitMQ:
+  - endereço: `http://localhost:15672/`
+  - usuário: guest
+  - senha: guest
 
 ### Variáveis de ambiente
 - Você precisa configurar duas variáveis de ambiente referente ao serviço de e-mail:
