@@ -31,7 +31,7 @@ public class SwaggerConfigurations {
                 .securitySchemes(List.of(apiKey()))
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.senai.vila.controller.rest"))
+                .apis(RequestHandlerSelectors.basePackage("com.senai.vila.controller"))
                 .paths(PathSelectors.any())
                 .build();
 

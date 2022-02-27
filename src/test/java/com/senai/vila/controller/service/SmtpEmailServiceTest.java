@@ -2,6 +2,8 @@ package com.senai.vila.controller.service;
 
 import com.senai.vila.model.dto.ResidentDto;
 import com.senai.vila.model.dto.RolesDto;
+import com.senai.vila.service.EmailService;
+import com.senai.vila.service.SmtpEmailService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,12 +16,12 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
 
 public class SmtpEmailServiceTest {
 
     private SmtpEmailService smtpEmailService;
     private String sender = "joao@email.com";
+    private String password = "teste";
     private MailSender mailSender;
     private EmailService emailService;
 
@@ -27,7 +29,7 @@ public class SmtpEmailServiceTest {
     void setUp() {
         this.mailSender = Mockito.mock(MailSender.class);
         this.emailService = Mockito.mock(EmailService.class);
-        this.smtpEmailService = new SmtpEmailService(sender, mailSender);
+        this.smtpEmailService = new SmtpEmailService(sender, password, mailSender);
     }
 
     @Test

@@ -1,6 +1,6 @@
-package com.senai.vila.controller.rest;
+package com.senai.vila.controller;
 
-import com.senai.vila.controller.service.ResidentService;
+import com.senai.vila.service.ResidentService;
 import com.senai.vila.exception.CpfException;
 import com.senai.vila.exception.ResidentException;
 import com.senai.vila.model.dto.ResidentDto;

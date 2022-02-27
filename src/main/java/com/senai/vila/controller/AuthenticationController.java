@@ -1,7 +1,7 @@
-package com.senai.vila.controller.rest;
+package com.senai.vila.controller;
 
-import com.senai.vila.controller.service.AuthenticationService;
-import com.senai.vila.controller.service.TokenService;
+import com.senai.vila.service.AuthenticationService;
+import com.senai.vila.service.TokenService;
 import com.senai.vila.exception.ResidentException;
 import com.senai.vila.model.dto.MailDto;
 import com.senai.vila.model.dto.TokenDto;

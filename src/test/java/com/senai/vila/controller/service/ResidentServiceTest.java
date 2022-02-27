@@ -6,6 +6,7 @@ import com.senai.vila.model.dto.ResidentDto;
 import com.senai.vila.model.dto.RolesDto;
 import com.senai.vila.model.entity.Resident;
 import com.senai.vila.model.repository.ResidentRepository;
+import com.senai.vila.service.ResidentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

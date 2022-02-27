@@ -1,4 +1,4 @@
-package com.senai.vila.controller.service;
+package com.senai.vila.service;
 
 import com.senai.vila.exception.CpfException;
 import com.senai.vila.exception.ResidentException;
