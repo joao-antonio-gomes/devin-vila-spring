@@ -5,15 +5,15 @@ import com.senai.vila.model.dto.ResidentDto;
 import com.senai.vila.model.dto.RolesDto;
 import com.senai.vila.model.entity.Resident;
 import com.senai.vila.model.repository.ResidentRepository;
+import com.senai.vila.service.AuthenticationService;
+import com.senai.vila.service.EmailService;
+import com.senai.vila.service.ResidentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

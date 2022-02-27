@@ -8,16 +8,15 @@ import com.senai.vila.model.entity.FinancialReport;
 import com.senai.vila.model.entity.Resident;
 import com.senai.vila.model.repository.FinancialReportRepository;
 import com.senai.vila.model.repository.ResidentRepository;
+import com.senai.vila.service.FinancialReportService;
+import com.senai.vila.service.ResidentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 

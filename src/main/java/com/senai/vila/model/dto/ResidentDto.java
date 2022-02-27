@@ -43,6 +43,20 @@ public class ResidentDto {
         this.roles = roles.stream().map(RolesDto::new).collect(Collectors.toList());
     }
 
+    @Override
+    public String toString() {
+        return "ResidentDto{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles.toString() +
+                ", rent=" + rent +
+                ", birthDate=" + birthDate +
+                ", cpf='" + cpf + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
     public ResidentDto(String firstName, String lastName, String cpf, LocalDate birthDate, Double rent, String email,
                        List<RolesDto> roles) {
         this.firstName = firstName;

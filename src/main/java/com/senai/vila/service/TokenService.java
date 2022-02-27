@@ -1,4 +1,4 @@
-package com.senai.vila.controller.service;
+package com.senai.vila.service;
 
 import com.senai.vila.model.entity.Resident;
 import io.jsonwebtoken.Claims;

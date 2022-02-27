@@ -82,6 +82,6 @@ public class FinancialReport {
     }
 
     public FinancialReportDto convertToDto() {
-        return new FinancialReportDto(budgetRemaining, budgetSpent, mostExpensiveResident.convertToDto());
+        return new FinancialReportDto(id, budgetRemaining, budgetSpent, mostExpensiveResident.convertToDto());
     }
 }

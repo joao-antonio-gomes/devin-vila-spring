@@ -1,6 +1,6 @@
 package com.senai.vila.config.security;
 
-import com.senai.vila.controller.service.TokenService;
+import com.senai.vila.service.TokenService;
 import com.senai.vila.model.entity.Resident;
 import com.senai.vila.model.repository.ResidentRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
